@@ -8,7 +8,6 @@ q = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 for i in str(a):
     q[int(i)] += 1
 
-print(q)
 
 most_f = 0
 f = 0
@@ -20,4 +19,5 @@ for i in q:
         f = i
     iterator += 1
 
-print(most_f)
+if (a != 0):
+    print(most_f)
