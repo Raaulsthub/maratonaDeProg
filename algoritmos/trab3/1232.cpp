@@ -59,8 +59,8 @@ void r_left(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     char aux[3][3];
     copia_fileira(aux, F, -1, 2, -1, 2);
     copia_fileira(F, D, -1, 2, -1, 2);
-    copia_fileira(D, B, -1, 2, -1, 2);
-    copia_fileira(B, U, -1, 2, -1, 2);
+    copia_fileira(D, B, -1, 2, -1, 0);
+    copia_fileira(B, U, -1, 0, -1, 2);
     copia_fileira(U, aux, -1, 2, -1, 2);
 }
 
@@ -70,18 +70,18 @@ void r_right(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     }
 }
 
-void l_left(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
+void l_right(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     char aux[3][3];
     copia_fileira(aux, F, -1, 0, -1, 0);
     copia_fileira(F, U, -1, 0, -1, 0);
-    copia_fileira(U, B, -1, 0, -1, 0);
-    copia_fileira(B, D, -1, 0, -1, 0);
+    copia_fileira(U, B, -1, 0, -1, 2);
+    copia_fileira(B, D, -1, 2, -1, 0);
     copia_fileira(D, aux, -1, 0, -1, 0);
 }
 
-void l_right(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
+void l_left(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     for (int i = 0; i < 3; i++){
-        l_left(D, U , B, F);
+        l_right(D, U , B, F);
     }
 }
 
@@ -89,8 +89,8 @@ void f_left(char R[3][3], char L[3][3], char D[3][3], char U[3][3]) {
     char aux[3][3];
     copia_fileira(aux, U, 2, -1, 2, -1);
     copia_fileira(U, L, 2, -1, -1, 2);
-    copia_fileira(L, D, -1, 2, 2, -1);
-    copia_fileira(D, R, 2, -1, -1, 0);
+    copia_fileira(L, D, -1, 2, 0, -1);
+    copia_fileira(D, R, 0, -1, -1, 0);
     copia_fileira(R, aux, -1, 0, 2, -1);
 }
 
@@ -104,9 +104,9 @@ void b_right(char R[3][3], char L[3][3], char D[3][3], char U[3][3]) {
     char aux[3][3];
     copia_fileira(aux, U, 0, -1, 0, -1);
     copia_fileira(U, L, 0, -1, -1, 0);
-    copia_fileira(L, D, -1, 0, 0, -1);
-    copia_fileira(D, R, 0, -1, -1, 2);
-    copia_fileira(R, aux, -1, 21, 0, -1);
+    copia_fileira(L, D, -1, 0, 2, -1);
+    copia_fileira(D, R, 2, -1, -1, 2);
+    copia_fileira(R, aux, -1, 2, 0, -1);
 }
 
 void b_left(char R[3][3], char L[3][3], char D[3][3], char U[3][3]) {
@@ -130,7 +130,7 @@ void u_right(char R[3][3], char L[3][3], char B[3][3], char F[3][3]) {
     }
 }
 
-void d_right(char R[3][3], char L[3][3], char B[3][3], char F[3][3]) {
+void d_left(char R[3][3], char L[3][3], char B[3][3], char F[3][3]) {
     char aux[3][3];
     copia_fileira(aux, F, 2, -1, 2, -1);
     copia_fileira(F, L, 2, -1, 2, -1);
@@ -139,9 +139,9 @@ void d_right(char R[3][3], char L[3][3], char B[3][3], char F[3][3]) {
     copia_fileira(R, aux, 2, -1, 2, -1);
 }
 
-void d_left(char R[3][3], char L[3][3], char B[3][3], char F[3][3]) {
+void d_right(char R[3][3], char L[3][3], char B[3][3], char F[3][3]) {
     for (int i = 0; i < 3; i++) {
-        d_right(R, L, B, F);
+        d_left(R, L, B, F);
     }
 }
 
@@ -222,6 +222,23 @@ int main() {
             break;
         }
         times++;
+
+        cout << endl << endl;
+
+        cout << "R" << endl;
+        print_matrix(R);
+        cout << "L" << endl;
+        print_matrix(L);
+        cout << "D" << endl;
+        print_matrix(D);
+        cout << "U" << endl;
+        print_matrix(U);
+        cout << "B" << endl;
+        print_matrix(B);
+        cout << "F" << endl;
+        print_matrix(F); 
+
+        cout << endl << endl; 
 
 
     } while(true);
