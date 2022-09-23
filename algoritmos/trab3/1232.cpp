@@ -55,6 +55,9 @@ void copia_fileira(char m1[][3], char m2[][3], int linha1, int coluna1, int linh
 
 // FORCA BRUTA
 
+// f F b B u U
+
+
 void r_left(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     char aux[3][3];
     copia_fileira(aux, F, -1, 2, -1, 2);
@@ -70,7 +73,7 @@ void r_right(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     }
 }
 
-void l_right(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
+void l_left(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     char aux[3][3];
     copia_fileira(aux, F, -1, 0, -1, 0);
     copia_fileira(F, U, -1, 0, -1, 0);
@@ -79,9 +82,9 @@ void l_right(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     copia_fileira(D, aux, -1, 0, -1, 0);
 }
 
-void l_left(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
+void l_right(char D[3][3], char U[3][3], char B[3][3], char F[3][3]) {
     for (int i = 0; i < 3; i++){
-        l_right(D, U , B, F);
+        l_left(D, U , B, F);
     }
 }
 
@@ -145,13 +148,13 @@ void d_right(char R[3][3], char L[3][3], char B[3][3], char F[3][3]) {
     }
 }
 
-bool matrix_compare(char a[3][3], char b[3][3]) {
+int matrix_compare(char a[3][3], char b[3][3]) {
     for (int i = 0; i < 3; i ++) {
         for (int j = 0; j < 3; j++) {
-            if (a[i][j] != b[i][j]) return false;
+            if (a[i][j] != b[i][j]) return 0;
         }
     }
-    return true;
+    return 1;
 }
 
 
@@ -178,89 +181,53 @@ int main() {
             switch (sequence[i])
             {
             case 'R':
-                r_right(D, U, B, F);
-                break;
-            case 'r':
                 r_left(D, U, B, F);
                 break;
-            case 'L':
-                l_right(D, U, B, F);
+            case 'r':
+                r_right(D, U, B, F);
                 break;
-            case 'l':
+            case 'L':
                 l_left(D, U, B, F);
                 break;
-            case 'F':
-                f_right(R, L, D, U);
+            case 'l':
+                l_right(D, U, B, F);
                 break;
-            case 'f':
+            case 'F':
                 f_left(R, L, D, U);
                 break;
-            case 'B':
-                b_right(R, L, D, U);
+            case 'f':
+                f_right(R, L, D, U);
                 break;
-            case 'b':
+            case 'B':
                 b_left(R, L, D, U);
                 break;
-            case 'U':
-                u_right(R, L, B, F);
+            case 'b':
+                b_right(R, L, D, U);
                 break;
-            case 'u':
+            case 'U':
                 u_left(R, L, B, F);
                 break;
+            case 'u':
+                u_right(R, L, B, F);
+                break;
             case 'D':
-                d_right(R, L, B, F);
+                d_left(R, L, B, F);
                 break;
             case 'd':
-                d_left(R, L, B, F);
+                d_right(R, L, B, F);
             default:
                 break;
             }
         }
-        if(matrix_compare(R, RC) && matrix_compare(L, LC) && matrix_compare(D, DC) &&
-            matrix_compare(U, UC) && matrix_compare(B, BC) && matrix_compare(F, FC)) 
+        if(matrix_compare(R, RC) == 1 && matrix_compare(L, LC) == 1 && matrix_compare(D, DC) == 1 &&
+            matrix_compare(U, UC) == 1 && matrix_compare(B, BC) == 1 && matrix_compare(F, FC) == 1) 
         {
             break;
         }
         times++;
-
-        cout << endl << endl;
-
-        cout << "R" << endl;
-        print_matrix(R);
-        cout << "L" << endl;
-        print_matrix(L);
-        cout << "D" << endl;
-        print_matrix(D);
-        cout << "U" << endl;
-        print_matrix(U);
-        cout << "B" << endl;
-        print_matrix(B);
-        cout << "F" << endl;
-        print_matrix(F); 
-
-        cout << endl << endl; 
-
-
     } while(true);
 
     cout << times << endl;
-
-    // debug 
-
-    r_left(D, U, B, F);
-
-    cout << "R" << endl;
-    print_matrix(R);
-    cout << "L" << endl;
-    print_matrix(L);
-    cout << "D" << endl;
-    print_matrix(D);
-    cout << "U" << endl;
-    print_matrix(U);
-    cout << "B" << endl;
-    print_matrix(B);
-    cout << "F" << endl;
-    print_matrix(F); 
-
+    
     return 0;
 }
